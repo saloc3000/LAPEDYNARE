@@ -1,0 +1,91 @@
+/ *
+ * Modelo de equilibrio general dinámico Fedesarrollo
+ * *
+
+// ************************************************ ***************
+// Definición de variables endógenas
+// ************************************************ ***************
+var	
+
+	TCR_t   $ {TCR_t} $	(long_name= 'tasa de cambio real')	
+	TI_t    $ {TI_t} $	(long_name= 'terminos de intercambio')	
+	U_1t    $ {U_1t} $	(long_name= 'costo real de alquiler de capital en el sector 1')	
+	U_2t    $ {U_2t} $	(long_name= 'costo real de alquiler de capital en el sector 2')
+	U_3t    $ {U_3t} $	(long_name= 'costo real de alquiler de capital en el sector 3')
+	V_gt    $ {V_gt} $      (long_name= 'Ingreso del gobierno por dividendos del sector petrolero*')
+	V_pt    $ {V_pt} $	(long_name= 'Pago de dividendos del sector privado al gobierno*')
+	W_1t    $ {W_1t} $      (long_name= 'Salario en sector 1')    
+	W_2t    $ {W_2t} $      (long_name= 'Salario en sector 2')  
+	W_3t    $ {W_3t} $      (long_name= 'Salario en sector 3')
+	X_11t   $ {X_11t} $	(long_name= 'Insumo del sector 1 usado en la producción del sector 1')
+	X_12t   $ {X_12t} $	(long_name= 'Insumo del sector 1 usado en la producción del sector 2')  
+	X_13t   $ {X_13t} $	(long_name= 'Insumo del sector 1 usado en la producción del sector 3')  
+	X_21t   $ {X_21t} $	(long_name= 'Insumo del sector 2 usado en la producción del sector 1')  
+	X_22t   $ {X_22t} $	(long_name= 'Insumo del sector 2 usado en la producción del sector 2')  
+	X_23t   $ {X_23t} $	(long_name= 'Insumo del sector 2 usado en la producción del sector 3')  
+	X_31t   $ {X_31t} $	(long_name= 'Insumo del sector 3 usado en la producción del sector 1')  	
+	X_32t   $ {X_32t} $	(long_name= 'Insumo del sector 3 usado en la producción del sector 2')  	
+	X_33t   $ {X_33t} $	(long_name= 'Insumo del sector 3 usado en la producción del sector 3')
+	XX_11t  $ {XX_1t} $	(long_name= 'compras minoristas de 1 del bien YY1*') 
+	XX_12t  $ {XX_12t} $      (long_name= 'compras minoristas de 2 del bien YY2*') 
+	XX_21t  $ {XX_21t} $	(long_name= 'compras minoristas de 2 del  bien YY1*')
+	XX_22t  $ {XX_22t} $	(long_name= 'compras minoristas  de 2 del bien YY2*')
+	XX_j1t  $ {XX_j1t} $	(long_name= 'compras del minorista j del bien YY1*')
+	XX_j2t  $ {XX_j2t} $	(long_name= 'compras del minorista j del bien YY2*')
+	Y_ct    $ {Y_ct} $	(long_name= 'produccion del bien de consumo')	Y_dt$ {U_1t} $	(long_name= 'produccion del bien domestico')
+	Y_gt    $ {Y_gt} $	(long_name= 'produduccion del bien de consumo del gobierno')
+	Y_it    $ {Y_it} $	(long_name= 'produccion del bien de inversión')	
+	Y_1t    $ {Y_1t} $	(long_name= 'produccion mayorista del sector 1')
+	Y_2t    $ {Y_2t} $	(long_name= 'produccion mayorista del sector 2')  
+	YY_1t   $ {YY_1t} $	(long_name= 'produccion bruta del sector 1') 
+	YY_2t   $ {YY_2t} $	(long_name= 'produccion bruta del sector 2') 
+	YY_3t   $ {YY_3t} $	(long_name= 'produccion bruta del sector 3')
+	YY_j1t  $ {YY_j1t} $	(long_name= 'Producción minorista de la variedad j en sector 1*')
+	YY_j2t	$ {YY_j2t} $      (long_name= 'Producción minorista de la variedad j en sector 2*')	
+	Z_1t    $ {Z_1t} $	(long_name= 'Monto de Y1,t como insumo en producción del bien doméstico')	
+	Z_2t    $ {Z_2t} $	(long_name= 'Monto de Y2,t como insumo en producción del bien doméstico')	
+	Z_gt    $ {Z_gt} $      (long_name= 'Monto de Y2,t como insumo en el bien de consumo del gobierno')
+	omegha_t $ {omegha_t} $     (long_name= 'precio sombra de la unidad adicional')
+;
+//***************************** ***********************
+//definiendo variables exogenas   
+//***************************** ***********************
+varexo 
+
+	thau_1t_mx  $ {thau_1t_mx} $  (long_name= 'arancel efectivo de materias primas importadas del sector 1')
+	thau_2t_mx  $ {thau_2t_mx} $  (long_name= 'arancel efectivo de materias primas importadas del sector 2')
+	thau_3t_mx  $ {thau_3t_mx} $  (long_name= 'arancel efectivo de materias primas importadas del sector 3')	
+	thau_1t_x   $ {thau_1t_x} $  (long_name= 'tasa de tributacion del consumo intermedio del sector 1')	
+	thau_2t_x   $ {thau_2t_x} $  (long_name= 'tasa de tributacion del consumo intermedio del sector 2')	
+	thau_3t_x   $ {thau_3t_x} $  (long_name= 'tasa de tributacion del consumo intermedio del sector 3')
+	T_gt        $ {T_gt} $  (long_name= 'transferencias del gobierno*')	
+	T_pt        $ {T_pt} $  (long_name= 'transferencias  recibidas por el sector privado*')	
+	T_t_NO      $ {T_t_NO} $  (long_name= 'transferencias recibidar por las familias no ricardianas')
+	T_t_O       $ {T_t_O} $  (long_name= 'transferencias recibidar por las familias ricardianas')
+	V_t_O 	    $ {V_t_O}  $  (long_name= 'Pago de dividendos de la familia ricardiana*')	
+	v_t	    $ {v_t}   $  (long_name= 'Pago de dividendos como % renta de capital del sector petrolero')	
+	Y*_t	    $ {Y*_t} $  (long_name= 'PIB Externo')
+;
+//********************** *************************
+//definiendo parametros
+//********************** *************************
+parameters
+
+	alppha_1 $ {alppha_1} $    (long_name= 'Elasticidad del valor agregado del sector 1 con respecto al capital')		
+	alppha_2 $ {alppha_2} $    (long_name= 'Elasticidad del valor agregado del sector 2 con respecto al capital')		
+	alppha_3 $ {alppha_3} $    (long_name= 'Elasticidad del valor agregado del sector 3 con respecto al capital')	
+	A_1	 $ {A_1} $         (long_name= 'Parámetro de escala de la función de producción del sector 1')	
+	A_2      $ {A_2} $         (long_name= 'Parámetro de escala de la función de producción del sector 2')			
+	A_3      $ {A_3} $         (long_name= 'Parámetro de escala de la función de producción del sector 3')	
+	A_c      $ {A_c} $         (long_name= 'Parámetro de escala de la función de producción del bien de consumo')
+	A_d      $ {A_d} $         (long_name= 'Parámetro de escala de la función de producción del bien domestico')        
+	A_e      $ {A_e} $         (long_name= 'Parámetro de escala de la función agregacion de exportaciones')	
+	A_g      $ {A_g} $         (long_name= 'Parámetro de escala de la función de producción del bien de consumo del gobierno')	
+	A_i      $ {A_i} $         (long_name= 'Parámetro de escala de la función de producción del bien de inversion')	
+	A_p      $ {A_p} $         (long_name= 'Parámetro de escala de la función de prima de riesgo')
+	A_x      $ {A_x} $         (long_name= 'Parámetro de escala de la función de demanda de exportaciones')
+	betha	 $ {betha} $       (long_name= 'factor subjetivo de descuento')
+	ghamma 	 $ {ghamma} $      (long_name= 'Tasa bruta de crecimiento del PIB por persona en edad de trabajar -15,64- años-')
+;
+		
+		 	
